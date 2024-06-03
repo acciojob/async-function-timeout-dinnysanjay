@@ -1,31 +1,18 @@
-//your JS code here. If required.
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.querySelector('form');
-  const output = document.getElementById('output');
+document.getElementById('myForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevent form submission
+    const text = document.getElementById('text').value;
+    const delay = parseInt(document.getElementById('delay').value);
 
-    const textInput = document.getElementById('text').value;
-    const delayInput = parseInt(document.getElementById('delay').value);
-
-    if (isNaN(delayInput)) {
-      output.innerText = 'Please enter a valid number for delay.';
-      return;
+    if (!isNaN(delay) && delay > 0) {
+        await delayFunction(delay);
+        document.getElementById('output').textContent = text;
+    } else {
+        document.getElementById('output').textContent = "Please enter a valid delay.";
     }
-
-    output.innerText = 'Waiting...';
-
-    try {
-      await delay(delayInput); // Wait for the specified delay
-      output.innerText = textInput; // Display the text after the delay
-    } catch (error) {
-      console.error('Error:', error);
-      output.innerText = 'An error occurred.';
-    }
-  });
 });
 
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function delayFunction(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
+
