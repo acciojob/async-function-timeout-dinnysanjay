@@ -14,6 +14,6 @@ document.getElementById('myForm').addEventListener('submit', async function(even
 });
 
 function delayFunction(ms) {
-    console.log('Delay function called with:', ms); // Added console.log
-    return new Promise(resolve => setTimeout(resolve, ms));
+    const start = Date.now();
+    while (Date.now() - start < ms) {}
 }
